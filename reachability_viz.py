@@ -620,14 +620,16 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         
         infoPanel.addEventListener('mouseleave', function(e) {{
           isOverInfoPanel = false;
-          // Re-enable network interactions when leaving info panel
+          // Always fully re-enable all network interactions when leaving info panel
           network.setOptions({{
             interaction: {{
               dragView: true,
               zoomView: true,
-              hover: false,
+              hover: true,
               selectConnectedEdges: true,
-              hoverConnectedEdges: true
+              hoverConnectedEdges: true,
+              multiselect: true,
+              navigationButtons: true
             }}
           }});
         }});
@@ -668,6 +670,13 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         network.on("deselectNode", function(params) {{
           selectedNodeId = null;
           resetHighlight();
+          // Re-enable hover events so highlighting works immediately
+          network.setOptions({{
+            interaction: {{
+              hover: true,
+              hoverConnectedEdges: true
+            }}
+          }});
         }});
         
         // Also reset when clicking on empty space
@@ -676,6 +685,13 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
             selectedNodeId = null;
             network.unselectAll();
             resetHighlight();
+            // Re-enable hover events so highlighting works immediately
+            network.setOptions({{
+              interaction: {{
+                hover: true,
+                hoverConnectedEdges: true
+              }}
+            }});
           }}
         }});
         
@@ -771,7 +787,18 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         function selectAndFocusNode(nodeId) {{
           // Reset previous highlighting before applying new one
           resetHighlight();
-          
+          // Always fully re-enable all network interactions after traveling to a node
+          network.setOptions({{
+            interaction: {{
+              dragView: true,
+              zoomView: true,
+              hover: true,
+              selectConnectedEdges: true,
+              hoverConnectedEdges: true,
+              multiselect: true,
+              navigationButtons: true
+            }}
+          }});
           // Focus on the node
           network.focus(nodeId, {{
             scale: 1.2,
@@ -780,12 +807,10 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
               easingFunction: 'easeInOutQuad'
             }}
           }});
-          
           // Select the node
           network.selectNodes([nodeId]);
           selectedNodeId = nodeId;
           highlightNodeAndEdges(nodeId);
-          
           // Clear search
           searchInput.value = '';
           searchResults.innerHTML = '';
