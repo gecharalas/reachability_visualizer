@@ -405,7 +405,8 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         #search-container {{
           position: absolute;
           top: 16px;
-          right: 16px;
+          left: 50%;
+          transform: translateX(-50%);
           z-index: 1000;
           width: 400px;
         }}
@@ -482,7 +483,7 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         .search-result:hover {{
           background: rgba(59,130,246,0.05);
           color: #1e40af;
-          transform: translateX(2px);
+          /* Remove horizontal movement */
         }}
         .search-result:active {{
           background: rgba(59,130,246,0.1);
@@ -500,6 +501,7 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         .show-more-results:hover {{
           background: rgba(59,130,246,0.08) !important;
           color: #1d4ed8 !important;
+          /* Remove any navigation bar styling */
         }}
         #instruction-overlay {{
           position: absolute;
@@ -816,9 +818,9 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
           
           // Check if clicked on "Show more results"
           if (target.classList && target.classList.contains('show-more-results')) {{
-            // Re-run search to show all results
             var currentQuery = searchInput.value;
             performSearch(currentQuery, true); // Pass true to show all results
+            // Do NOT hide or change instruction overlay visibility
             return;
           }}
           
@@ -1046,6 +1048,13 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
               if (!isNaN(targetNodeId)) {{
                 resetHighlight();
                 selectAndFocusNode(targetNodeId);
+                // After focusing, ensure hover events are enabled and highlight works
+                network.setOptions({{
+                  interaction: {{
+                    hover: true,
+                    hoverConnectedEdges: true
+                  }}
+                }});
                 return;
               }}
             }}
@@ -1115,6 +1124,16 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
               }});
               document.body.style.cursor = 'default';
               console.log('Map unlocked - press U to lock');
+              // Restore hover highlighting if a node is selected
+              network.setOptions({{
+                interaction: {{
+                  hover: true,
+                  hoverConnectedEdges: true
+                }}
+              }});
+              if (selectedNodeId !== null) {{
+                highlightNodeAndEdges(selectedNodeId);
+              }}
             }}
           }}
         }});
