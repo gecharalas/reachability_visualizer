@@ -629,7 +629,7 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
               selectConnectedEdges: true,
               hoverConnectedEdges: true,
               multiselect: true,
-              navigationButtons: true
+              navigationButtons: false
             }}
           }});
         }});
@@ -796,7 +796,7 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
               selectConnectedEdges: true,
               hoverConnectedEdges: true,
               multiselect: true,
-              navigationButtons: true
+              navigationButtons: false
             }}
           }});
           // Focus on the node
