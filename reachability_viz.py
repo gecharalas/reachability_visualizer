@@ -407,21 +407,21 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
           top: 16px;
           right: 16px;
           z-index: 1000;
-          width: 400px;
+          width: 350px;
         }}
         #search-input {{
           width: 100%;
           padding: 16px 20px;
-          border: 2px solid rgba(180,180,180,0.7); /* grey border to match notification */
-          border-radius: 16px;
+          border: none;
+          border-radius: 28px;
           font-size: 15px;
           font-weight: 500;
           box-sizing: border-box;
-          background: rgba(255,255,255,0.98);
-          color: #222;
+          background: rgba(0,0,0,0.7);
+          color: rgba(255,255,255,0.9);
           backdrop-filter: blur(10px);
           -webkit-backdrop-filter: blur(10px);
-          box-shadow: 0 8px 32px rgba(0,0,0,0.10), 0 2px 16px rgba(0,0,0,0.04);
+          box-shadow: none;
           transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }}
         #search-input::placeholder {{
@@ -430,8 +430,8 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         }}
         #search-input:focus {{
           outline: none;
-          border: 2px solid #888;
-          background: #fff;
+          border: none;
+          background: rgba(0,0,0,0.7);
         }}
         #search-results {{
           max-height: 280px;
@@ -1171,7 +1171,7 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         // Add small circular recenter button to bottom right
         var recenterButton = document.createElement('button');
         recenterButton.title = 'Recenter to start node';
-        recenterButton.innerHTML = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="12" stroke="#1e40af" stroke-width="2" fill="#e0e7ff"/><circle cx="14" cy="14" r="5" stroke="#1e40af" stroke-width="2" fill="none"/><circle cx="14" cy="14" r="2" fill="#1e40af"/></svg>';
+  recenterButton.innerHTML = '<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="14" cy="14" r="12" stroke="#fff" stroke-width="2" fill="rgba(0,0,0,0.7)"/><circle cx="14" cy="14" r="5" stroke="#fff" stroke-width="2" fill="none"/><circle cx="14" cy="14" r="2" fill="#fff"/></svg>';
         recenterButton.style.position = 'fixed';
         recenterButton.style.bottom = '32px';
         recenterButton.style.right = '32px';
@@ -1180,15 +1180,15 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         recenterButton.style.height = '40px';
         recenterButton.style.borderRadius = '50%';
         recenterButton.style.border = 'none';
-        recenterButton.style.background = 'transparent';
-        recenterButton.style.boxShadow = '0 2px 8px rgba(0,0,0,0.10)';
+  recenterButton.style.background = 'rgba(0,0,0,0.7)';
+  recenterButton.style.boxShadow = 'none';
         recenterButton.style.display = 'flex';
         recenterButton.style.alignItems = 'center';
         recenterButton.style.justifyContent = 'center';
         recenterButton.style.cursor = 'pointer';
         recenterButton.style.transition = 'box-shadow 0.2s';
-        recenterButton.onmouseover = function() {{ recenterButton.style.boxShadow = '0 4px 16px rgba(59,130,246,0.18)'; }};
-        recenterButton.onmouseout = function() {{ recenterButton.style.boxShadow = '0 2px 8px rgba(0,0,0,0.10)'; }};
+  recenterButton.onmouseover = null;
+  recenterButton.onmouseout = null;
         document.body.appendChild(recenterButton);
 
         recenterButton.addEventListener('click', function() {{
