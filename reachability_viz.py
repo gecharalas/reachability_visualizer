@@ -838,7 +838,49 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         function highlightNodeAndEdges(nodeId) {{
           var connectedNodes = network.getConnectedNodes(nodeId);
           var connectedEdges = network.getConnectedEdges(nodeId);
-          // Do NOT update node or edge colors/styles on click/select. Only show statistics.
+          // Highlight selected node (same size as others)
+          var nodeUpdates = [{{
+            id: nodeId,
+            color: {{
+              background: '#fde68a',
+              border: '#f59e42',
+              highlight: {{ background: '#fff8dc', border: '#f59e42' }}
+            }},
+            font: {{ color: '#222', size: 13 }}
+          }}];
+          // Highlight directly connected nodes
+          connectedNodes.forEach(function(nid) {{
+            nodeUpdates.push({{
+              id: nid,
+              color: {{
+                background: '#fffbe6',
+                border: '#ffd700',
+                highlight: {{ background: '#fffbe6', border: '#ffd700' }}
+              }},
+              font: {{ color: '#333', size: 13 }}
+            }});
+          }});
+          // Highlight second-degree neighbors (brothers) with a noticeable color
+          var secondDegree = new Set();
+          connectedNodes.forEach(function(nid) {{
+            network.getConnectedNodes(nid).forEach(function(nid2) {{
+              if (nid2 !== nodeId && !connectedNodes.includes(nid2)) {{
+                secondDegree.add(nid2);
+              }}
+            }});
+          }});
+          secondDegree.forEach(function(nid) {{
+            nodeUpdates.push({{
+              id: nid,
+              color: {{
+                background: '#60a5fa', // Vibrant blue
+                border: '#2563eb',
+                highlight: {{ background: '#60a5fa', border: '#2563eb' }}
+              }},
+              font: {{ color: '#222', size: 13 }}
+            }});
+          }});
+          nodes.update(nodeUpdates);
           // Get current node name - use original unabbreviated name
           var currentNodeName = originalNames[nodeId] || 'unnamed';
           
