@@ -3,6 +3,7 @@
 
 # But not these files
 !*.py
+!README.md
 
 # Also don't ignore directories (so Git can access .py files inside them)
 !*/
