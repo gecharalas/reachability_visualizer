@@ -249,11 +249,11 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
             "id": nid,
             "label": label,
             "color": {
-                "background": "#fff3cd" if nid == start_node else "#f0f4ff",
-                "border": "#ff9800" if nid == start_node else "#2196F3",
+                "background": "#34d399" if nid == start_node else "#f0f4ff",  # Green for start node
+                "border": "#059669" if nid == start_node else "#2196F3",
                 "highlight": {
-                    "background": "#ffff99",
-                    "border": "#ffcc00"
+                    "background": "#6ee7b7" if nid == start_node else "#ffff99",
+                    "border": "#059669" if nid == start_node else "#ffcc00"
                 }
             },
             "size": size,
