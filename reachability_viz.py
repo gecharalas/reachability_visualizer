@@ -405,8 +405,7 @@ def export_html(nodes, edges, included_nodes, output_html="reachability.html", s
         #search-container {{
           position: absolute;
           top: 16px;
-          left: 50%;
-          transform: translateX(-50%);
+          right: 16px;
           z-index: 1000;
           width: 400px;
         }}
