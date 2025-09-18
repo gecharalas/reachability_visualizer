@@ -1,3 +1,8 @@
-reachability
-reachability.html
-reachability_view.dot
+# Ignore everything
+*
+
+# But not these files
+!*.py
+
+# Also don't ignore directories (so Git can access .py files inside them)
+!*/
